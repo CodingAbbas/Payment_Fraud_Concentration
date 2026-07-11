@@ -37,6 +37,11 @@ The full query is available in this repository.
 
 &nbsp;
 
+Table 1: transaction volume and fraud by payment band
+Groups every transaction into one of six value bands, shows the count and
+Percentage of all transactions per band, then adds how many fraud cases
+Fell in each band and what share of all fraud that band accounts for
+
 
 ![](images/Payment_Band_Table.png)
 
