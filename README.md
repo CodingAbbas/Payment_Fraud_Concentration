@@ -43,7 +43,7 @@ Percentage of all transactions per band, then adds how many fraud cases
 Fell in each band and what share of all fraud that band accounts for
 
 
-![]()
+![](images/Payment_Band_Analysis.png)
 
 
 &nbsp;
