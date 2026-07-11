@@ -38,7 +38,7 @@ The full query is available in this repository.
 &nbsp;
 
 
-(image)
+![](images/Payment_Band_Table.png)
 
 
 &nbsp;
