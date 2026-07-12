@@ -11,14 +11,17 @@ It was built entirely in PostgreSQL to demonstrate querying and summarising data
 
 ## Why This Project Matters
 
-aa
+Payment fraud is a significant and ongoing cost for financial institutions, and risk teams cannot realistically investigate every transaction individually. 
+Understanding where fraud actually concentrates, rather than treating every payment as equally risky, allows limited investigation and monitoring resources to be directed where they are needed most. 
+This kind of prioritisation sits behind many real operational decisions, from which transactions get flagged for manual review to how monitoring thresholds are set.
 
 &nbsp;
+
 
 ## Dataset
 
 The data comes from PaySim, a synthetic financial dataset available on Kaggle that simulates money transactions based on real transaction logs. 
-It contains 6,362,620 records across eleven columns, including transaction type, amount, sender and receiver account identifiers, account balances before and after each transaction, and two fraud indicators.
+It contains over 6,000,000 records across eleven columns, including transaction type, amount, sender and receiver account identifiers, account balances before and after each transaction, and two fraud indicators.
 
 &nbsp;
 
