@@ -1,10 +1,9 @@
 # Analysing Payment Value & Fraud Concentration
 
-
 ## Overview
 
 This project uses SQL to analyse over 6.3 million payment transactions, segmenting them into value bands to identify where fraud concentrates by payment size. 
-It was built entirely in PostgreSQL to demonstrate querying and summarising data at a scale spreadsheet tools like Excel cannot practically handle, a core skill for payment and risk analyst roles in financial services.
+It was built entirely in PostgreSQL to demonstrate querying and summarising data at scale, a core skill for payment and risk analyst roles in financial services.
 
 &nbsp;
 
@@ -12,7 +11,8 @@ It was built entirely in PostgreSQL to demonstrate querying and summarising data
 ## Why This Project Matters
 
 Payment fraud is a significant and ongoing cost for financial institutions, and risk teams cannot realistically investigate every transaction individually. 
-Understanding where fraud actually concentrates, rather than treating every payment as equally risky, allows limited investigation and monitoring resources to be directed where they are needed most. This kind of prioritisation sits behind many real operational decisions, from which transactions get flagged for manual review to how monitoring thresholds are set.
+Understanding where fraud actually concentrates allows limited investigation and monitoring resources to be directed where they are needed most. 
+This kind of prioritisation sits behind many real operational decisions, from which transactions get flagged for manual review to how monitoring thresholds are set.
 
 &nbsp;
 
@@ -34,20 +34,24 @@ The dataset was loaded into a PostgreSQL database, with a table structured to ma
 All 6.3 million transactions were imported directly into PostgreSQL using the COPY command, avoiding the performance limits of spreadsheet tools at this scale.
 
 **3) Segment and Analyse:** 
-Transactions were grouped into six value bands, from under £100 to over £1,000,000. SQL window functions were used to calculate each band's share of total transaction volume alongside its share of all fraudulent transactions, both within a single query. The full query is available in this repository.
+Transactions were grouped into six value bands, from under £100 to over £1,000,000. 
+SQL window functions were used to calculate each band's share of total transaction volume alongside its share of all fraudulent transactions, both within a single query. 
 
 &nbsp;
 
 
 **Table 1: Transaction Volume and Fraud Distribution by Payment Band**
 
-Groups every transaction into one of six value bands to analyze risk concentration. It displays the total transaction count and percentage share for each band, alongside the corresponding number of fraudulent cases and their overall share of total fraud.
+Groups every transaction into one of six value bands to analyze risk concentration. 
+It displays the total transaction count and percentage share for each band, alongside the corresponding number of fraudulent cases and their overall share of total fraud.
 
 ![](images/Payment_Band_Analysis.png)
 
 &nbsp;
 
 
-Transactions over £1,000,000 account for just 2% of total transaction volume, yet make up 33% of all fraudulent transactions in the dataset, over sixteen times their share of volume. This concentration of risk in a small number of high value transactions is the kind of pattern a risk team would want surfaced early, rather than treating every payment band as equally risky.
+Transactions over £1,000,000 account for just 2% of total transaction volume, yet make up 33% of all fraudulent transactions in the dataset—over 16 times their share of volume. 
+This concentration of risk in a small number of high-value transactions is the kind of pattern a risk team would want surfaced early to guide monitoring thresholds and resource allocation.
 
-During the analysis, 287 of the 8,213 total fraud cases were found to sit at an identical value of exactly £10,000,000, a ceiling built into how the dataset simulates fraud rather than a genuine pattern in account behaviour. Catching and explaining anomalies like this before they skew a result is as much a part of the analysis as the headline finding.
+During the analysis, 287 of the 8,213 total fraud cases were found to sit at an identical value of exactly £10,000,000, a ceiling built into how the dataset simulates fraud. 
+Catching and explaining anomalies like this before they skew results is essential to rigorous analysis.
