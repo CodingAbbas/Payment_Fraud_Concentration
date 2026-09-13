@@ -1,27 +1,25 @@
-# Analysing Payment Value & Fraud Concentration
+# Analysing Customer Spending & Revenue Concentration
 
 
 ## Overview
 
-This project uses SQL to analyse over 6.3 million payment transactions, segmenting them into value bands to identify where fraud concentrates by payment size. 
-It was built entirely in PostgreSQL to demonstrate querying and summarising data at a scale spreadsheet tools like Excel cannot practically handle, a core skill for payment and risk analyst roles in financial services.
+This project uses SQL to analyse over 1 million customer transactions, segmenting customers into spending tiers to identify where revenue concentrates and which customer segments drive the most value. It was built entirely in PostgreSQL to demonstrate querying and summarising customer data at a scale spreadsheet tools like Excel cannot practically handle, a core skill for customer analytics and business analyst roles in financial services.
 
 &nbsp;
 
 
 ## Why This Project Matters
 
-Payment fraud is a significant and ongoing cost for financial institutions, and risk teams cannot realistically investigate every transaction individually. 
-Understanding where fraud actually concentrates, rather than treating every payment as equally risky, allows limited investigation and monitoring resources to be directed where they are needed most. 
-This kind of prioritisation sits behind many real operational decisions, from which transactions get flagged for manual review to how monitoring thresholds are set.
+Understanding customer value distribution is critical for financial institutions to allocate resources effectively. 
+Not all customers generate equal value, and identifying which customer segments drive the most revenue allows business teams to focus retention efforts, marketing spend, and relationship management on high-impact groups. This kind of customer segmentation sits behind many real operational decisions, from which customers receive premium service tiers to how customer acquisition budgets are allocated across different spending segments.
 
 &nbsp;
 
 
 ## Dataset
 
-The data comes from PaySim, a synthetic financial dataset available on Kaggle that simulates money transactions based on real transaction logs. 
-It contains over 6,000,000 records across eleven columns, including transaction type, amount, sender and receiver account identifiers, account balances before and after each transaction, and two fraud indicators.
+The data comes from a Bank Customer Segmentation dataset available on Kaggle containing over 1 million transactions. 
+It contains over 1,000,000 records across nine columns, including customer demographics, transaction amounts, account balance information, and transaction timestamps.
 
 &nbsp;
 
@@ -29,22 +27,21 @@ It contains over 6,000,000 records across eleven columns, including transaction 
 ## Methodology
 
 **1) Set Up the Database:** 
-The dataset was loaded into a PostgreSQL database, with a table structured to match the eleven columns in the source file.
+The dataset was loaded into a PostgreSQL database, with a table structured to match the nine columns in the source file.
 
 **2) Import the Data:** 
-All 6.3 million transactions were imported directly into PostgreSQL using the COPY command, avoiding the performance limits of spreadsheet tools at this scale.
+All 1,048,567 transactions were imported directly into PostgreSQL using the COPY command, avoiding the performance limits of spreadsheet tools at this scale.
 
 **3) Segment and Analyse:** 
-Transactions were grouped into six value bands, from under £100 to over £1,000,000. 
-SQL window functions were used to calculate each band's share of total transaction volume alongside its share of all fraudulent transactions, both within a single query. 
-The full query is available in this repository.
+Customers were grouped into four spending tiers based on their total transaction value, from under £1,000 to over £100,000. 
+SQL aggregation functions and CTEs were used to calculate each tier's share of total customer count alongside its share of total transaction value, both within a single query. The full query is available in this repository.
 
 &nbsp;
 
-**Table 1: Transaction Volume and Fraud Distribution by Payment Band**
+**Table 1: Customer Distribution and Revenue Concentration by Spending**
 
-Groups every transaction into one of six value bands to analyze risk concentration. 
-It displays the total transaction count and percentage share for each band, alongside the corresponding number of fraudulent cases and their overall share of total fraud.
+Segments every customer into one of four spending bands to analyze customer value concentration. 
+It displays the total customer count and percentage share for each tier, alongside the average transaction size and total revenue contribution.
 
 
 ![](images/Payment_Band_Analysis.png)
@@ -53,8 +50,6 @@ It displays the total transaction count and percentage share for each band, alon
 &nbsp;
 
 
-Transactions over £1,000,000 account for just 2% of total transaction volume, yet make up 33% of all fraudulent transactions in the dataset, over sixteen times their share of volume. 
-This concentration of risk in a small number of high value transactions is the kind of pattern a risk team would want surfaced early, rather than treating every payment band as equally risky.
+The Medium-tier customers (£1k - £10k) represent just 32.77% of the customer base, yet generate 46.34% of all transaction value, making this segment the primary revenue driver. This concentration of value in a relatively small customer group is the kind of pattern a business team would want surfaced early to prioritise retention efforts, rather than treating every customer segment as equally valuable.
 
-During the analysis, 287 of the 8,213 total fraud cases were found to sit at an identical value of exactly £10,000,000, a ceiling built into how the dataset simulates fraud rather than a genuine pattern in account behaviour. 
-Catching and explaining anomalies like this before they skew a result is as much a part of the analysis as the headline finding.
+The analysis reveals that Low-tier customers (Under £1k) make up 64% of the customer base but contribute only 11.45% of revenue, while High and Premium tiers combined account for just 3% of customers but drive 42.21% of value. This skew towards medium and high-value customers demonstrates healthy revenue diversification and highlights where strategic customer relationship investments would yield the greatest return.
